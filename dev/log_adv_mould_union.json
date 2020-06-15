@@ -1,0 +1,152 @@
+{
+    "job": {
+        "setting": {
+        	"speed": {
+    			"bytes": 1048576,
+    			"channel": 2,
+    			"rebalance": false,
+    			"readerChannel": 1,
+    			"writerChannel": 1
+        	},
+        	"errorLimit": {
+                "record": 10000,
+                "percentage": 100
+        	},
+        	"dirty": {
+                "path": "/tmp",
+                "hadoopConfig": {
+                    "fs.default.name": "hdfs://HDFS80933",
+                    "dfs.nameservices": "HDFS80933",
+                    "dfs.ha.namenodes.HDFS80933": "nn1,nn2",
+                    "dfs.namenode.rpc-address.HDFS80933.nn1": "172.31.64.79:4007",
+                    "dfs.namenode.rpc-address.HDFS80933.nn2": "172.31.64.106:4007",
+                    "dfs.ha.automatic-failover.enabled": "true",
+                    "dfs.client.failover.proxy.provider.HDFS80933": "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider",
+                    "fs.hdfs.impl.disable.cache": "true"
+                }
+        	},
+        	"log" : {
+		        "isLogger": true,
+		        "level" : "warn",
+		        "path" : "/data/flinkx/log/",
+		        "pattern":""
+		    },
+        	"restart": {
+        		"strategy": "fixedDelay",
+        		"restartAttempts": 5,
+        		"delayInterval": 10,
+        		"failureRate":2,
+        		"failureInterval":60
+        	}
+        },
+        "content": [{
+			"reader": {
+				"name": "esreader",
+				"parameter": {
+					"address": "advcloud_es_master01:19211,advcloud_es_master02:19211,advcloud_es_master03:19211",
+					"index": "adv_mould_union",
+					"type": "appTypeId",
+					"column": [
+						{
+							"name": "id",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "appTypeId",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "advMouldName",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "pgtype",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "os",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "advMouldId",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "advType",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "specialChannel",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "userName",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "company",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "union",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "isInsure",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "userType",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "remarks",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "openName",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "inTime",
+							"type": "string",
+							"value": "value"
+    					},{
+							"name": "status",
+							"type": "string",
+							"value": "value"
+    					}
+					]
+				}
+			},
+			"writer": {
+	          "name" : "hivewriter",
+	          "parameter" : {
+	            "jdbcUrl" : "jdbc:hive2://172.31.65.127:7001/log_center",
+	            "username" : "hadoop",
+	            "password" : "",
+	            "fileType" : "text",
+	            "fieldDelimiter" : "\t",
+	            "writeMode" : "overwrite",
+	            "compress" : "",
+	            "charsetName" : "UTF-8",
+	            "maxFileSize" : 1073741824,
+	            "tablesColumn" : "{\"log_adv_mould_union_backup\":[{\"key\":\"id\",\"type\":\"string\"},{\"key\":\"appTypeId\",\"type\":\"string\"},{\"key\":\"advMouldName\",\"type\":\"string\"},{\"key\":\"pgtype\",\"type\":\"string\"},{\"key\":\"os\",\"type\":\"string\"},{\"key\":\"advMouldId\",\"type\":\"string\"},{\"key\":\"advType\",\"type\":\"string\"},{\"key\":\"specialChannel\",\"type\":\"string\"},{\"key\":\"userName\",\"type\":\"string\"},{\"key\":\"company\",\"type\":\"string\"},{\"key\":\"union\",\"type\":\"string\"},{\"key\":\"isInsure\",\"type\":\"string\"},{\"key\":\"userType\",\"type\":\"string\"},{\"key\":\"remarks\",\"type\":\"string\"},{\"key\":\"openName\",\"type\":\"string\"},{\"key\":\"inTime\",\"type\":\"string\"},{\"key\":\"status\",\"type\":\"string\"}]}",
+	            "partition" : "dt",
+	            "partitionType" : "DAY",
+	            "defaultFS" : "hdfs://HDFS80933",
+	            "hadoopConfig" : {
+	              "dfs.ha.namenodes.HDFS80933" : "nn1,nn2",
+	              "dfs.namenode.rpc-address.HDFS80933.nn2" : "172.31.64.79:4007",
+	              "dfs.client.failover.proxy.provider.HDFS80933" : "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider",
+	              "dfs.namenode.rpc-address.HDFS80933.nn1" : "172.31.64.106:4007",
+	              "dfs.nameservices" : "HDFS80933",
+	              "fs.hdfs.impl.disable.cache" : "true",
+	              "fs.hdfs.impl" : "org.apache.hadoop.hdfs.DistributedFileSystem"
+	            }
+	          }
+	        }
+        }]
+    }
+}
+
